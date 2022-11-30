@@ -1,0 +1,17 @@
+#gameboard {
+  text-align: center;
+}
+
+#background {
+  background-color: #0a0a0a;
+}
+#scoreText {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(13, 13, 14);
+}
+
+#resetbtn,
+#startbtn {
+  cursor: pointer;
+}
