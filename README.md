@@ -1,8 +1,15 @@
 # First-Program-Pong-JavaScript
 
 Primeira tentativa de criar o jogo Pong em JavaScript.
- (First try to recriate the Pong game on JavaScript.)  
-Falta consertar (Need to fix):  
-botão reset (reset button)  
-As vezes a bola trava na raquete (Sometime the ball bug with the paddle)  
+   
+Falta consertar:   
+botão reset.   
+As vezes a bola trava na raquete.    
 
+----------------------------
+First try to recriate the Pong game on JavaScript.  
+
+Need to fix:   
+Reset button.      
+Sometime the ball bug with the paddle. 
+ 
