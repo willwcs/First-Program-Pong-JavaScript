@@ -9,6 +9,7 @@ let scoreP2 = 0;
 let speedBallX = 4;
 let speedBallY = 4;
 let paddleSpeed = 25;
+let paddle2Speed;
 let ball = {
   ballX: background.width / 2,
   ballY: background.height / 2,
@@ -37,6 +38,7 @@ function startGame() {
   update();
   moveBall();
   collisionBall();
+  unstuckBall();
   paddleCollision();
   movePaddle1();
   movePaddle2();
@@ -48,30 +50,41 @@ function startGame() {
 function update() {
   requestAnimationFrame(update);
   ctx.clearRect(0, 0, innerWidth, innerHeight); // Limpa o canvas
-  ctx.beginPath(); // Cria a bola
-  ctx.arc(ball.ballX, ball.ballY, ball.radius, ball.angleI, ball.angleF);
-  ctx.fillStyle = ball.collor;
-  ctx.fill();
-  ctx.stroke();
+  drawBall();
+  drawPaddles();
+}
 
-  ctx.beginPath(); // Cria a raquete 1
+// Cria raquetes
+function drawPaddles() {
+  ctx.beginPath();
   ctx.rect(paddle1.x, paddle1.y, paddle1.width, paddle1.height);
   ctx.fillStyle = ball.collor;
   ctx.fill();
   ctx.stroke();
 
-  ctx.beginPath(); // Cria a raquete 2
+  ctx.beginPath();
   ctx.rect(paddle2.x, paddle2.y, paddle2.width, paddle2.height);
   ctx.fillStyle = ball.collor;
   ctx.fill();
   ctx.stroke();
 }
+
+// Cria bola
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(ball.ballX, ball.ballY, ball.radius, ball.angleI, ball.angleF);
+  ctx.fillStyle = ball.collor;
+  ctx.fill();
+  ctx.stroke();
+}
+
 // Movimenta a bola
 function moveBall() {
   requestAnimationFrame(moveBall);
   ball.ballX += speedBallX;
   ball.ballY += speedBallY;
 }
+
 // Checa colisão da bola com o canvas
 function collisionBall() {
   requestAnimationFrame(collisionBall);
@@ -90,6 +103,7 @@ function collisionBall() {
     speedBallY = -speedBallY;
   }
 }
+
 // Colisão da bola com as raquetes
 function paddleCollision() {
   requestAnimationFrame(paddleCollision);
@@ -109,6 +123,18 @@ function paddleCollision() {
     speedBallX = -speedBallX;
   }
 }
+
+//Caso a bolinha fique presa
+function unstuckBall() {
+  requestAnimationFrame(unstuckBall);
+  if (ball.ballX - ball.radius < 0) {
+    ball.ballX = 25;
+  }
+  if (ball.ballX + ball.radius > 500) {
+    ball.ballX = 485;
+  }
+}
+
 // Movimenta raquete 1 com = arrowUp e arrowDown
 function movePaddle1() {
   document.addEventListener("keydown", (event) => {
@@ -120,17 +146,21 @@ function movePaddle1() {
     }
   });
 }
+
 // Raquete 2 segue o eixo y da bola
 function movePaddle2() {
   requestAnimationFrame(movePaddle2);
-  paddle2.y = ball.ballY - paddle2.height / 2;
+  paddle2Speed = ball.ballY - paddle2.y - paddle2.height / 2 - 30;
+  paddle2.y += paddle2Speed;
 }
+
 // Adiciona pontuação
 function addScore() {
   requestAnimationFrame(addScore);
   scoreText.textContent = `${scoreP1} - ${scoreP2}`;
 }
 
+//Reseta o jogo
 function resetGame() {
   ctx.clearRect(0, 0, innerWidth, innerHeight);
   scoreP1 = 0;
