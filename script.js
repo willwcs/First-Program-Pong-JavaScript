@@ -4,12 +4,14 @@ let ctx = background.getContext("2d");
 let scoreText = document.querySelector("#scoreText");
 let startBtn = document.querySelector("#startbtn");
 let resetBtn = document.querySelector("#resetbtn");
+let stopBtn = document.querySelector("#stopbtn");
 let scoreP1 = 0;
 let scoreP2 = 0;
 let speedBallX = 4;
 let speedBallY = 4;
-let paddleSpeed = 25;
+let paddleSpeed = 35;
 let paddle2Speed;
+let gameSpeed;
 let ball = {
   ballX: background.width / 2,
   ballY: background.height / 2,
@@ -150,7 +152,7 @@ function movePaddle1() {
 // Raquete 2 segue o eixo y da bola
 function movePaddle2() {
   requestAnimationFrame(movePaddle2);
-  paddle2Speed = ball.ballY - paddle2.y - paddle2.height / 2 - 30;
+  paddle2Speed = ball.ballY - paddle2.y - paddle2.height / 2;
   paddle2.y += paddle2Speed;
 }
 
@@ -189,6 +191,10 @@ function resetGame() {
   };
 }
 
-startBtn.addEventListener("click", startGame);
+startBtn.addEventListener("click", function () {
+  if (gameSpeed != 0) {
+    gameSpeed = 0;
+    startGame();
+  }
+});
 resetBtn.addEventListener("click", resetGame);
-//startGame();
