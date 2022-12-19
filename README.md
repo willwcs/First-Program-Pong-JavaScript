@@ -2,16 +2,14 @@
 
 Primeira tentativa de criar o jogo Pong em JavaScript.
    
-Falta consertar:   
-Botão reset.   
-Arrumar botão iniciar.  
+Falta consertar:      
+Adicionar botão Stop.    
 Adicionar dificultade no oponente.  
 
 ----------------------------
 First try to recriate the Pong game on JavaScript.  
 
 Need to fix:   
-Reset button.      
-Fix start button.  
+Add stop button.   
 Add opponent difficulty.  
  
