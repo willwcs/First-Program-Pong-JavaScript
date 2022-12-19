@@ -10,7 +10,7 @@ let scoreP2 = 0;
 let speedBallX = 4;
 let speedBallY = 4;
 let paddleSpeed = 35;
-let paddle2Speed;
+let paddle2Direction = 1;
 let gameSpeed;
 let ball = {
   ballX: background.width / 2,
@@ -129,11 +129,11 @@ function paddleCollision() {
 //Caso a bolinha fique presa
 function unstuckBall() {
   requestAnimationFrame(unstuckBall);
-  if (ball.ballX - ball.radius < 0) {
+  if (ball.ballX - ball.radius <= 0) {
     ball.ballX = 25;
   }
-  if (ball.ballX + ball.radius > 500) {
-    ball.ballX = 485;
+  if (ball.ballX + ball.radius >= 500) {
+    ball.ballX = 475;
   }
 }
 
@@ -152,8 +152,16 @@ function movePaddle1() {
 // Raquete 2 segue o eixo y da bola
 function movePaddle2() {
   requestAnimationFrame(movePaddle2);
-  paddle2Speed = ball.ballY - paddle2.y - paddle2.height / 2;
-  paddle2.y += paddle2Speed;
+
+  const posYBall = ball.ballY + ball.radius;
+  const posYPaddle2 = paddle2.y + paddle2.height / 2;
+
+  if (posYBall > posYPaddle2) {
+    paddle2Direction = 1;
+  } else {
+    paddle2Direction = -1;
+  }
+  paddle2.y += 6 * Math.random(0.55, 0.95) * paddle2Direction;
 }
 
 // Adiciona pontuação
